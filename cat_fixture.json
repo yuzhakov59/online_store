@@ -1,0 +1,34 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "cat_name": "Овощи",
+        "cat_description": ""
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "cat_name": "Фрукты",
+        "cat_description": ""
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+        "cat_name": "Напитки",
+        "cat_description": ""
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+        "cat_name": "Снеки",
+        "cat_description": ""
+    }
+}
+]
