@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for cata in cata_prod %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <h4 class="my-0 font-weight-normal">{{ cata.name }}</h4>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">{{ cata.price }} руб.</h1>
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>- Неограниченная лицензия</li>
+                    </ul>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Описание</button>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
