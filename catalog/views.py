@@ -19,6 +19,6 @@ def contacts(request):
 
 
 def prod_detail(request, prod_name):
-    product = Product.objects.get(name=prod_name)
+    product = get_object_or_404(Product, name=prod_name)
     context = {"product": product}
     return render(request, 'prod_detail.html', context)
