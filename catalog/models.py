@@ -17,9 +17,10 @@ class Product(models.Model):
     description = models.TextField(verbose_name='описание',blank=True, null=True)
     picture = models.ImageField(upload_to='prod', verbose_name='фото продукта',blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='books')
-    price = models.IntegerField(max_length=50, verbose_name='цена',blank=True, null=True)
+    price = models.IntegerField(verbose_name='цена',blank=True, null=True)
     created_at = models.DateField(verbose_name='дата создания')
     updated_at = models.DateField(verbose_name='дата последнего изменения')
+    views_counter = models.PositiveIntegerField(verbose_name='счетчик просмотров', help_text='укажите количество просмотров', default=0)
 
     def __str__(self):
         return self.name
