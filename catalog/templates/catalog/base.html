@@ -15,12 +15,29 @@
         <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:catalog_list' %}">Главная</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:contacts' %}">Контакты</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'blog:blog_list' %}">Блог</a>
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'users:logout' %}" style="display: inline">
+                {% csrf_token %}
+                <button class="p-2 btn btn-outline-primary" type="submit">Выход</button>
+            </form>
+            <a class="p-2 btn btn-outline-primary" href="{% url 'users:user_update' %}">Редактировать</a>
+        {% else %}
+            <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Вход</a>
+            <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
+        {% endif %}
     </nav>
 </div>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Prod_store</h1>
     <p class="lead">Prod_store - Покупки с лёгкостью, жизнь с удовольствием.</p>
+    <p class="lead">
+        {% if user.is_authenticated %}
+            Добро пожаловать {{ user.username }}
+        {% else %}
+            Добро пожаловать на сайт
+        {% endif %}
+    </p>
     <p>
         <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_create' %}" role="button">Создать продукт</a>
     </p>
