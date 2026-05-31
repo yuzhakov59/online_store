@@ -8,7 +8,7 @@ from .models import Product
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'picture', 'category', 'price', 'created_at', 'updated_at']
+        fields = ['name', 'description', 'picture', 'category', 'price']
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
@@ -37,15 +37,11 @@ class ProductForm(forms.ModelForm):
             'placeholder': 'Введите цену'  # Текст подсказки внутри поля
         })
 
-        self.fields['created_at'].widget.attrs.update({
-            'class': 'form-control',
-            'type': 'data'
-        })
+class ProductModeratorForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'description', 'publication_status']
 
-        self.fields['updated_at'].widget.attrs.update({
-            'class': 'form-control',
-            'type': 'data'
-        })
 
 
     def clean_name(self):

@@ -14,9 +14,13 @@
                         <h1 class="card-title pricing-card-title">{{ cata.price }} руб.</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                         <li>- Неограниченная лицензия</li>
-                        <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_detail' cata.pk %}" role="button">Описание</a>
-                        <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_update' cata.pk %}" role="button">Редактировать</a>
-                        <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_delete' cata.pk %}" role="button">Удалить</a>
+                        {% if perms.catalog.can_unpublish_product or user == cata.owner %}
+                            <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_detail' cata.pk %}" role="button">Описание</a>
+                            <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_update' cata.pk %}" role="button">Редактировать</a>
+                            <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_delete' cata.pk %}" role="button">Удалить</a>
+                        {% else %}
+                            <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_detail' cata.pk %}" role="button">Описание</a>
+                        {% endif %}
                     </ul>
                     </div>
                 </div>
