@@ -3,6 +3,14 @@
 {% block title %}Главная страница{% endblock %}
 {% block content %}
 <div class="album py-5 bg-body-tertiary">
+    <div class="container text-center mb-4">
+        <h3>Категории:</h3>
+        <div class="btn-group" role="group" aria-label="Категории">
+            {% for category in categories %}
+                <a href="{% url 'catalog:category_product_list' category.pk %}" class="btn btn-outline-primary">{{ category.cat_name }}</a>
+            {% endfor %}
+        </div>
+    </div>
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for cata in object_list %}

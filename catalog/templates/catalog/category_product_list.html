@@ -1,0 +1,37 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+
+{% block title %}Продукты категории: {{ category.cat_name }}{% endblock %}
+
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <h2 class="text-center mb-4">Продукты категории: {{ category.cat_name }}</h2>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for product in object_list %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{{ product.picture | media_filter }}" class="card-img-top" alt="Изображение товара" style="height: 200px; object-fit: cover;">
+                    <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">{{ product.price }} руб.</h1>
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                            <li>- Неограниченная лицензия</li>
+                            {% if perms.catalog.can_unpublish_product or user == product.owner %}
+                                <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Описание</a>
+                                <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_update' product.pk %}" role="button">Редактировать</a>
+                                <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_delete' product.pk %}" role="button">Удалить</a>
+                            {% else %}
+                                <a class="p-1 btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Описание</a>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

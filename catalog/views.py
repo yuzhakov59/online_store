@@ -2,16 +2,40 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
-from django.utils.translation.trans_real import catalog
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
 from catalog.forms import ProductForm, ProductModeratorForm
-from catalog.models import Product
+from catalog.models import Product, Category
 from django.contrib.auth.mixins import LoginRequiredMixin
+from catalog.services import get_catalog_from_cache, get_products_by_category
 
 
 class ProductListView(ListView):
     model = Product
+
+    def get_queryset(self):
+        return get_catalog_from_cache()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
+
+class CategoryProductListView(ListView):
+    model = Product
+    template_name = 'catalog/category_product_list.html'
+
+    def get_queryset(self):
+        category_id = self.kwargs.get('category_id')
+        return get_products_by_category(category_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.kwargs.get('category_id')
+        context['category'] = Category.objects.get(pk=category_id)
+        context['categories'] = Category.objects.all()
+        return context
+
 
 
 class ProductDetailView(DetailView):
